@@ -3,7 +3,7 @@
 import placeholder from "../assets/blog1.png"
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom'
-import { getInitials } from '../lib/utils'
+import { getInitials, formatDate } from '../lib/utils'
 import config from '../config';
 
 const BlogCardList = ({ blog }) => {

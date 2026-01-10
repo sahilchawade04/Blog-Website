@@ -9,7 +9,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { setBlog } from '../redux/blogSlice';
 import { setComment } from '../redux/commentSlice';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Edit } from 'lucide-react';
 import config from '../config';
 import { BsThreeDots } from "react-icons/bs";
 import {

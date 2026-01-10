@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
-import { setAuthUser } from '../redux/authSlice';
+import { setUser } from '../redux/authSlice';
 import config from '../config';
 import auth from "../assets/auth.jpg"
 

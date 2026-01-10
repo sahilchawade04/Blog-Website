@@ -2,7 +2,7 @@
 import React from 'react'
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom'
-import { getInitials } from '../lib/utils'
+import { formatDate } from '../lib/utils'
 import config from '../config';
 
 import placeholder from "../assets/blog1.png"
