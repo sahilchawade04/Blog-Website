@@ -13,7 +13,8 @@ import {
 } from "../components/ui/select"
 import { Button } from '../components/ui/button'
 import JoditEditor from 'jodit-react';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom';
+import config from '../config';
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { toast } from 'sonner'
@@ -43,7 +44,7 @@ const UpdateBlog = () => {
     const [previewThumbnail, setPreviewThumbnail] = useState(
         selectBlog?.thumbnail?.startsWith("http") 
             ? selectBlog?.thumbnail 
-            : (selectBlog?.thumbnail ? `http://127.0.0.1:8000${selectBlog?.thumbnail}` : "")
+            : (selectBlog?.thumbnail ? `${config.API_URL}${selectBlog?.thumbnail}` : "")
     );
 
     const handleChange = (e) => {
@@ -81,7 +82,7 @@ const UpdateBlog = () => {
         try {
             setLoading(true)
             const token = localStorage.getItem("token");
-            const res = await axios.patch(`http://127.0.0.1:8000/api/v1/blog/${id}`, formData, {
+            const res = await axios.patch(`${config.API_URL}/api/v1/blog/${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     "Authorization": `Bearer ${token}`
@@ -115,7 +116,7 @@ const UpdateBlog = () => {
 
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.patch(`http://127.0.0.1:8000/api/v1/blog/${id}`, 
+            const res = await axios.patch(`${config.API_URL}/api/v1/blog/${id}`, 
             {
                 // Data payload
                 action 
@@ -147,7 +148,7 @@ const UpdateBlog = () => {
     const deleteBlog = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.delete(`http://127.0.0.1:8000/api/v1/blog/delete/${id}`, { 
+            const res = await axios.delete(`${config.API_URL}/api/v1/blog/delete/${id}`, { 
                 headers: {
                     "Authorization": `Bearer ${token}`
                 },

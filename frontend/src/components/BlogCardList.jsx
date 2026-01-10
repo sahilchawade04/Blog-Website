@@ -3,7 +3,8 @@
 import placeholder from "../assets/blog1.png"
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom'
-import { formatDate } from '../lib/utils'
+import { getInitials } from '../lib/utils'
+import config from '../config';
 
 const BlogCardList = ({ blog }) => {
     const navigate = useNavigate()
@@ -13,7 +14,7 @@ const BlogCardList = ({ blog }) => {
             <img 
                 src={
                     blog.thumbnail 
-                        ? (blog.thumbnail.startsWith("http") ? blog.thumbnail : `http://127.0.0.1:8000${blog.thumbnail}`)
+                        ? (blog.thumbnail.startsWith("http") ? blog.thumbnail : `${config.API_URL}${blog.thumbnail}`)
                         : placeholder
                 } 
                 alt="" 

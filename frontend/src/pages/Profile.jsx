@@ -20,7 +20,8 @@ import { Textarea } from '../components/ui/textarea'
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { setUser } from '../redux/authSlice'
+import { setUser } from '../redux/authSlice';
+import config from '../config';
 import TotalProperty from '../components/TotalProperty'
 
 const Profile = () => {
@@ -70,7 +71,7 @@ const Profile = () => {
         try {
             setLoading(true)
             const token = localStorage.getItem("token");
-            const res = await axios.put(`http://127.0.0.1:8000/api/v1/user/profile/update`, formData, {
+            const res = await axios.put(`${config.API_URL}/api/v1/user/profile/update`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     "Authorization": `Bearer ${token}`
@@ -100,7 +101,7 @@ const Profile = () => {
                         <Avatar className="w-40 h-40 border-2">
                             <AvatarImage src={
                                 user?.photoUrl 
-                                    ? (user.photoUrl.startsWith("http") ? user.photoUrl : `http://127.0.0.1:8000${user.photoUrl}`)
+                                    ? (user.photoUrl.startsWith("http") ? user.photoUrl : `${config.API_URL}${user.photoUrl}`)
                                     : userLogo
                             } />
                         </Avatar>

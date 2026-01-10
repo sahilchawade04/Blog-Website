@@ -8,7 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
-import { setUser } from "../redux/authSlice";
+import { setAuthUser } from '../redux/authSlice';
+import config from '../config';
 import auth from "../assets/auth.jpg"
 
 const Login = () => {
@@ -32,7 +33,7 @@ const Login = () => {
     console.log(input);
 
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/v1/user/login`, input, {
+      const response = await axios.post(`${config.API_URL}/api/v1/user/login`, input, {
         headers: {
           "Content-Type": "application/json"
         },

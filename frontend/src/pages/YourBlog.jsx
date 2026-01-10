@@ -17,7 +17,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { setBlog } from '../redux/blogSlice'
 import { Edit,  Trash2 } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import config from '../config';
 import { toast } from 'sonner'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../components/ui/dropdown-menu'
@@ -35,7 +36,7 @@ const YourBlog = () => {
     const getOwnBlog = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.get(`http://127.0.0.1:8000/api/v1/blog/get-own-blogs`, { 
+            const res = await axios.get(`${config.API_URL}/api/v1/blog/get-own-blogs`, { 
                 headers: { "Authorization": `Bearer ${token}` },
                 withCredentials: true 
             })
@@ -78,7 +79,7 @@ const YourBlog = () => {
     const deleteBlog = async (id) => {
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.delete(`http://127.0.0.1:8000/api/v1/blog/delete/${id}`, { 
+            const res = await axios.delete(`${config.API_URL}/api/v1/blog/delete/${id}`, { 
                 headers: { "Authorization": `Bearer ${token}` },
                 withCredentials: true 
             })
@@ -142,7 +143,7 @@ const YourBlog = () => {
                                         <img 
                                             src={
                                                 item.thumbnail 
-                                                    ? (item.thumbnail.startsWith("http") ? item.thumbnail : `http://127.0.0.1:8000${item.thumbnail}`)
+                                                    ? (item.thumbnail.startsWith("http") ? item.thumbnail : `${config.API_URL}${item.thumbnail}`)
                                                     : placeholder
                                             } 
                                             alt="" 

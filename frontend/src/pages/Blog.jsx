@@ -3,7 +3,8 @@ import  { useEffect } from 'react'
 import LMS from "../assets/LMS.png"
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { setBlog } from '../redux/blogSlice'
+import { setBlog } from '../redux/blogSlice';
+import config from '../config';
 // import BlogCardList from '@/components/BlogCardList'
 
 
@@ -69,7 +70,7 @@ const Blog = () => {
     useEffect(() => {
         const getAllPublsihedBlogs = async () => {
             try {
-                const res = await axios.get(`http://127.0.0.1:8000/api/v1/blog/get-published-blogs`, { withCredentials: true })
+                const res = await axios.get(`${config.API_URL}/api/v1/blog/get-published-blogs`, { withCredentials: true })
                 if (res.data.success) {
                     dispatch(setBlog(res.data.blogs))
                 }

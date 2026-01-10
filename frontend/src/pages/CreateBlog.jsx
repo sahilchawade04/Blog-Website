@@ -8,7 +8,8 @@ import axios from 'axios'
 import { Loader2 } from 'lucide-react'
 import  { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import config from '../config';
 import { toast } from 'sonner'
 
 const CreateBlog = () => {
@@ -26,7 +27,7 @@ const CreateBlog = () => {
         try {
             setLoading(true)
             const token = localStorage.getItem("token");
-            const res = await axios.post(`http://127.0.0.1:8000/api/v1/blog`, { title, category }, {
+            const res = await axios.post(`${config.API_URL}/api/v1/blog`, { title, category }, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`

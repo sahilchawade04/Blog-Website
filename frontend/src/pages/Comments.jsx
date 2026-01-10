@@ -1,7 +1,9 @@
+
 import { Card } from '../components/ui/card'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table'
 import axios from 'axios'
-import {  Eye} from 'lucide-react'
+import { Trash2 } from 'lucide-react';
+import config from '../config';
 import  { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,7 +13,7 @@ const Comments = () => {
     const getTotalComments = async()=>{
         try {
           const token = localStorage.getItem("token");
-          const res = await axios.get(`http://127.0.0.1:8000/api/v1/comment/my-blogs/comments`,{
+          const res = await axios.get(`${config.API_URL}/api/v1/comment/my-blogs/comments`,{
               headers: { "Authorization": `Bearer ${token}` },
               withCredentials:true
           })

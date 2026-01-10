@@ -13,7 +13,8 @@ import { useState } from 'react'
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { toast } from 'sonner'
+import { toast } from 'sonner';
+import config from '../config';
 import auth from "../assets/auth.jpg"
 
 const Signup = () => {
@@ -40,7 +41,7 @@ const Signup = () => {
         console.log(user)
 
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/api/v1/user/register`, user, {
+            const response = await axios.post(`${config.API_URL}/api/v1/user/register`, user, {
                 headers: {
                     "Content-Type": "application/json",
                 },

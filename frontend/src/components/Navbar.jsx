@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { getInitials } from '../lib/utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'sonner'
+import config from '../config';
 import axios from 'axios'
 import { setUser } from '../redux/authSlice'
 import userLogo from "../assets/user.jpg"
@@ -59,7 +60,7 @@ const Navbar = () => {
     const logoutHandler = async (e) => {
 
         try {
-            const res = await axios.get(`http://127.0.0.1:8000/api/v1/user/logout`, { withCredentials: true });
+            const res = await axios.get(`${config.API_URL}/api/v1/user/logout`, { withCredentials: true });
             
             // Allow success even if backend message differs or session was already invalid
             if (res.status === 200 || res.data.success) {
@@ -134,7 +135,7 @@ const Navbar = () => {
                                         <Avatar className="cursor-pointer">
                                             <AvatarImage src={
                                                 user.photoUrl 
-                                                    ? (user.photoUrl.startsWith("http") ? user.photoUrl : `http://127.0.0.1:8000${user.photoUrl}`)
+                                                    ? (user.photoUrl.startsWith("http") ? user.photoUrl : `${config.API_URL}${user.photoUrl}`)
                                                     : userLogo
                                             } />
                                             <AvatarFallback>{getInitials(`${user.firstName} ${user.lastName}`)}</AvatarFallback>

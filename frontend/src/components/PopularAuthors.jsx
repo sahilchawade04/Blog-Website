@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import config from '../config';
 import  { useEffect, useState } from 'react'
 import userLogo from "../assets/user.jpg"
 
@@ -6,7 +7,7 @@ const PopularAuthors = () => {
     const [popularUser, setPopularUser] = useState([])
     const getAllUsers = async () => {
         try {
-            const res = await axios.get(`http://127.0.0.1:8000/api/v1/user/all-users`)
+            const res = await axios.get(`${config.API_URL}/api/v1/user/all-users`)
             if (res.data.success) {
                 setPopularUser(res.data.users)
             }
@@ -32,7 +33,7 @@ const PopularAuthors = () => {
                                 <img 
                                     src={
                                         user.photoUrl 
-                                            ? (user.photoUrl.startsWith("http") ? user.photoUrl : `http://127.0.0.1:8000${user.photoUrl}`)
+                                            ? (user.photoUrl.startsWith("http") ? user.photoUrl : `${config.API_URL}${user.photoUrl}`)
                                             : userLogo
                                     } 
                                     alt=""  

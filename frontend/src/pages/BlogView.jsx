@@ -17,7 +17,8 @@ import CommentBox from "../components/CommentBox";
 import axios from "axios";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { setBlog } from "../redux/blogSlice";
-import { toast } from "sonner";
+import { toast } from 'sonner'
+import config from '../config';
 import placeholder from "../assets/blog1.png"
 import { formatDate, getInitials } from "../lib/utils";
 
@@ -41,7 +42,7 @@ const BlogView = () => {
     const fetchSingleBlog = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://127.0.0.1:8000/api/v1/blog/${blogId}`, {
+        const res = await axios.get(`${config.API_URL}/api/v1/blog/${blogId}`, {
           withCredentials: true
         });
         
@@ -99,7 +100,7 @@ const BlogView = () => {
         return;
       }
       const res = await axios.get(
-        `http://127.0.0.1:8000/api/v1/blog/${selectedBlog._id}/${action}?timestamp=${new Date().getTime()}`,
+        `${config.API_URL}/api/v1/blog/${selectedBlog._id}/${action}?timestamp=${new Date().getTime()}`,
         { 
             headers: {
                 "Authorization": `Bearer ${token}` 
@@ -152,7 +153,7 @@ const BlogView = () => {
         const token = localStorage.getItem("token");
         if (!token) return toast.error("Please login");
         
-        const res = await axios.delete(`http://127.0.0.1:8000/api/v1/blog/delete/${selectedBlog._id}`, { 
+        const res = await axios.delete(`${config.API_URL}/api/v1/blog/delete/${selectedBlog._id}`, { 
             headers: { "Authorization": `Bearer ${token}` },
             withCredentials: true 
         })
@@ -240,10 +241,10 @@ const BlogView = () => {
               <Avatar>
                 <AvatarImage src={
                   (user?._id === selectedBlog?.author?._id && user?.photoUrl) 
-                    ? (user.photoUrl.startsWith("http") ? user.photoUrl : `http://127.0.0.1:8000${user.photoUrl}`)
+                    ? (user.photoUrl.startsWith("http") ? user.photoUrl : `${config.API_URL}${user.photoUrl}`)
                     : (selectedBlog?.author?.photoUrl?.startsWith("http") 
                         ? selectedBlog?.author?.photoUrl 
-                        : `http://127.0.0.1:8000${selectedBlog?.author?.photoUrl}`)
+                        : `${config.API_URL}${selectedBlog?.author?.photoUrl}`)
                 } />
                 <AvatarFallback>{getInitials(
                     user?._id === selectedBlog?.author?._id 
@@ -286,7 +287,7 @@ const BlogView = () => {
           <img
             src={
               selectedBlog?.thumbnail
-                ? (selectedBlog.thumbnail.startsWith("http") ? selectedBlog.thumbnail : `http://127.0.0.1:8000${selectedBlog.thumbnail}`)
+                ? (selectedBlog.thumbnail.startsWith("http") ? selectedBlog.thumbnail : `${config.API_URL}${selectedBlog.thumbnail}`)
                 : placeholder
             }
             alt="Blog"

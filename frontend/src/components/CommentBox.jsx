@@ -9,7 +9,8 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { setBlog } from '../redux/blogSlice';
 import { setComment } from '../redux/commentSlice';
-import { Edit, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
+import config from '../config';
 import { BsThreeDots } from "react-icons/bs";
 import {
     DropdownMenu,
@@ -50,7 +51,7 @@ const CommentBox = ({ selectedBlog }) => {
         const getAllCommentsOfBlog = async () => {
             try {
                 // eslint-disable-next-line react/prop-types
-                const res = await axios.get(`http://127.0.0.1:8000/api/v1/comment/${selectedBlog._id}/comment/all`)
+                const res = await axios.get(`${config.API_URL}/api/v1/comment/${selectedBlog._id}/comment/all`)
                 const data = res.data.comments
                 dispatch(setComment(data))
             } catch (error) {
@@ -66,7 +67,7 @@ const CommentBox = ({ selectedBlog }) => {
             const token = localStorage.getItem("token");
             const res = await axios.post(
                 // eslint-disable-next-line react/prop-types
-                `http://127.0.0.1:8000/api/v1/comment/${selectedBlog._id}/create`,
+                `${config.API_URL}/api/v1/comment/${selectedBlog._id}/create`,
                 { content },
                 {
                     headers: { 
@@ -108,7 +109,7 @@ const CommentBox = ({ selectedBlog }) => {
                 return;
             }
             const res = await axios.post(
-                `http://127.0.0.1:8000/api/v1/comment/${commentId}/reply`,
+                `${config.API_URL}/api/v1/comment/${commentId}/reply`,
                 { content: replyText },
                 {
                     headers: { 
@@ -140,7 +141,7 @@ const CommentBox = ({ selectedBlog }) => {
         try {
             const token = localStorage.getItem("token");
             if (!token) return toast.error("Please login");
-            const res = await axios.delete(`http://127.0.0.1:8000/api/v1/comment/${commentId}/delete`, {
+            const res = await axios.delete(`${config.API_URL}/api/v1/comment/${commentId}/delete`, {
                 headers: { "Authorization": `Bearer ${token}` },
                 withCredentials: true
             })
@@ -160,7 +161,7 @@ const CommentBox = ({ selectedBlog }) => {
             const token = localStorage.getItem("token");
             if (!token) return toast.error("Please login");
             const res = await axios.put(
-                `http://127.0.0.1:8000/api/v1/comment/${commentId}/edit`,
+                `${config.API_URL}/api/v1/comment/${commentId}/edit`,
                 { content: editedContent },
                 {
                     withCredentials: true,
@@ -194,7 +195,7 @@ const CommentBox = ({ selectedBlog }) => {
                 return;
             }
             const res = await axios.get(
-                `http://127.0.0.1:8000/api/v1/comment/${commentId}/like?timestamp=${new Date().getTime()}`,
+                `${config.API_URL}/api/v1/comment/${commentId}/like?timestamp=${new Date().getTime()}`,
                 { 
                     headers: { "Authorization": `Bearer ${token}` },
                     withCredentials: true 
@@ -222,7 +223,7 @@ const CommentBox = ({ selectedBlog }) => {
                 <Avatar>
                     <AvatarImage src={
                         user?.photoUrl 
-                        ? (user.photoUrl.startsWith("http") ? user.photoUrl : `http://127.0.0.1:8000${user.photoUrl}`) 
+                        ? (user.photoUrl.startsWith("http") ? user.photoUrl : `${config.API_URL}${user.photoUrl}`) 
                         : ""
                     } />
                     <AvatarFallback>{getInitials(`${user.firstName} ${user.lastName}`)}</AvatarFallback>
@@ -248,8 +249,8 @@ const CommentBox = ({ selectedBlog }) => {
                                         <Avatar>
                                             <AvatarImage src={
                                                 (user?._id === item?.user?._id && user?.photoUrl)
-                                                ? (user.photoUrl.startsWith("http") ? user.photoUrl : `http://127.0.0.1:8000${user.photoUrl}`)
-                                                : (item?.user?.photoUrl ? (item.user.photoUrl.startsWith("http") ? item.user.photoUrl : `http://127.0.0.1:8000${item.user.photoUrl}`) : "")
+                                                ? (user.photoUrl.startsWith("http") ? user.photoUrl : `${config.API_URL}${user.photoUrl}`)
+                                                : (item?.user?.photoUrl ? (item.user.photoUrl.startsWith("http") ? item.user.photoUrl : `${config.API_URL}${item.user.photoUrl}`) : "")
                                             } />
                                             <AvatarFallback>{getInitials(`${item?.user?.firstName} ${item?.user?.lastName}`)}</AvatarFallback>
                                         </Avatar>
@@ -324,8 +325,8 @@ const CommentBox = ({ selectedBlog }) => {
                                                 <Avatar>
                                                     <AvatarImage src={
                                                         (user?._id === rep?.user?._id && user?.photoUrl)
-                                                        ? (user.photoUrl.startsWith("http") ? user.photoUrl : `http://127.0.0.1:8000${user.photoUrl}`)
-                                                        : (rep?.user?.photoUrl ? (rep.user.photoUrl.startsWith("http") ? rep.user.photoUrl : `http://127.0.0.1:8000${rep.user.photoUrl}`) : "")
+                                                        ? (user.photoUrl.startsWith("http") ? user.photoUrl : `${config.API_URL}${user.photoUrl}`)
+                                                        : (rep?.user?.photoUrl ? (rep.user.photoUrl.startsWith("http") ? rep.user.photoUrl : `${config.API_URL}${rep.user.photoUrl}`) : "")
                                                     } />
                                                     <AvatarFallback>{getInitials(`${rep.user?.firstName} ${rep.user?.lastName}`)}</AvatarFallback>
                                                 </Avatar>
