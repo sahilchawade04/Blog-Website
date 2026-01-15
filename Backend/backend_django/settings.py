@@ -88,23 +88,22 @@ WSGI_APPLICATION = 'backend_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog_db',          
-        'USER': 'root',            
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv('DB_NAME', 'blog_db'),
+        'USER': os.getenv('DB_USER', 'root'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'root'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '3306'),
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         }
     }
 }
 
-DATABASES['default'] = dj_database_url.config(
-    default='mysql://root:root@localhost:3306/blog_db',
-    conn_max_age=600
-)
 
 
+db_from_env = dj_database_url.config(conn_max_age=600)
+if db_from_env:
+    DATABASES['default'] = db_from_env
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -157,6 +156,9 @@ CORS_ALLOW_CREDENTIALS = True
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+
 # Custom User Model
 AUTH_USER_MODEL = 'blog_api.User'
 
@@ -177,4 +179,6 @@ SIMPLE_JWT = {
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
