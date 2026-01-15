@@ -2,7 +2,7 @@
 import { Card } from '../components/ui/card'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table'
 import axios from 'axios'
-import { Trash2 } from 'lucide-react';
+import { Trash2, Eye } from 'lucide-react';
 import config from '../config';
 import  { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { LayoutDashboard, MessageSquare, ThumbsUp } from 'lucide-react'
+import { LayoutDashboard, MessageSquare, ThumbsUp, Eye, BarChart3 } from 'lucide-react'
 import config from '../config';
 import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
